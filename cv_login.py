@@ -17,9 +17,14 @@ split_token = response_token.split(" ")
 auth_token = split_token[1]
 print(auth_token)
 
-whoami_headers = {'Content-type': 'application/xml', 'Accept': 'application/json','Cookie2': response_token}
-post_whoami = requests.post('http://comm-server:81/SearchSvc/CVWebService.svc/WhoAmI', headers=whoami_headers)
+post_headers = {'Content-type': 'application/xml', 'Accept': 'application/json','Cookie2': response_token}
+post_whoami = requests.post('http://comm-server:81/SearchSvc/CVWebService.svc/WhoAmI', headers=post_headers)
 print(type(post_whoami))
 response_whoami = post_whoami.text
 whoami_list = response_whoami.split(" ")
 print(whoami_list[1],whoami_list[2],whoami_list[3],whoami_list[4])
+
+get_headers = {'Accept': 'application/json','Cookie2': response_token}
+get_clientinfo = requests.get('http://comm-server:81/SearchSvc/CVWebService.svc/Client', headers = get_headers)
+response_clientinfo = get_clientinfo.json()
+client_properties_dict=(response_clientinfo['clientProperties'])
