@@ -27,4 +27,20 @@ print(whoami_list[1],whoami_list[2],whoami_list[3],whoami_list[4])
 get_headers = {'Accept': 'application/json','Cookie2': response_token}
 get_clientinfo = requests.get('http://comm-server:81/SearchSvc/CVWebService.svc/Client', headers = get_headers)
 response_clientinfo = get_clientinfo.json()
-client_properties_dict=(response_clientinfo['clientProperties'])
+
+def all_clients(allclients_header):
+
+    get_clientinfo = requests.get('http://comm-server:81/SearchSvc/CVWebService.svc/Client', headers=allclients_header)
+    response_clientinfo = get_clientinfo.json()
+    r1 = response_clientinfo['clientProperties']
+    client1 = r1[0]
+    client1_client = client1['client']
+    client1_client_clientEntity = client1_client['clientEntity']
+    client2 = r1[1]
+    client2_client = client2['client']
+    client2_client_clientEntity = client2_client['clientEntity']
+
+    print(client1_client_clientEntity)
+    print(client2_client_clientEntity)
+
+all_clients(get_headers)
